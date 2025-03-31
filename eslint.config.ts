@@ -5,6 +5,7 @@ import prettier from 'eslint-plugin-prettier'
 import prettierConfig from 'eslint-config-prettier'
 import eslintPluginImportX from 'eslint-plugin-import-x'
 import { createTypeScriptImportResolver } from 'eslint-import-resolver-typescript'
+import drizzle from 'eslint-plugin-drizzle'
 
 export default [
   eslintJs.configs.recommended,
@@ -25,6 +26,7 @@ export default [
     },
     plugins: {
       prettier,
+      drizzle,
     },
     rules: {
       'prettier/prettier': 'error',
@@ -45,6 +47,7 @@ export default [
       'no-shadow': 'off',
       '@typescript-eslint/no-shadow': 'error',
       'no-undef': 'off',
+      ...drizzle.configs.recommended.rules,
     },
     settings: {
       'import-x/resolver-next': [
