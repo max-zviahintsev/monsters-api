@@ -9,8 +9,6 @@ const app: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
   },
 })
 
-app.get('/ping', async () => {
-  return 'pong\n'
-})
+app.get('/ping', async () => 'pong\n')
 
 export default app
