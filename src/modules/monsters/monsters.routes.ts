@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
-import { getAllMonstersHandler } from './monsters.controller.ts'
+import { getAllMonstersHandler, getMonsterByIdHandler } from './monsters.controller.ts'
 
-export async function getMonstersRoute(fastify: FastifyInstance) {
+async function getMonstersRoute(fastify: FastifyInstance) {
   const opts = {
     schema: {
       response: {
@@ -27,3 +27,19 @@ export async function getMonstersRoute(fastify: FastifyInstance) {
   }
   fastify.get('/monsters', opts, getAllMonstersHandler)
 }
+
+async function getMonsterByIdRoute(fastify: FastifyInstance) {
+  const opts = {
+    schema: {
+      params: {
+        type: 'object',
+        properties: {
+          id: { type: 'string' },
+        },
+      },
+    },
+  }
+  fastify.get('/monsters/:id', opts, getMonsterByIdHandler)
+}
+
+export { getMonstersRoute, getMonsterByIdRoute }
