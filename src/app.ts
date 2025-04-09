@@ -1,6 +1,7 @@
 import fastify, { FastifyInstance } from 'fastify'
 import { Server, IncomingMessage, ServerResponse } from 'node:http'
-import { seed } from './db/seed.ts'
+// import { seed } from './db/seed.ts'
+import { getMonstersRoute } from './modules/monsters/monsters.routes.ts'
 
 const app: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
   logger: {
@@ -12,6 +13,9 @@ const app: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
 
 app.get('/ping', async () => 'pong\n')
 
-await seed()
+//await seed()
+
+// ROUTES
+await app.register(getMonstersRoute)
 
 export default app
