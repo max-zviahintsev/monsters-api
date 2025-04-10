@@ -4,12 +4,14 @@ import {
   getMonsterByIdHandler,
   addMonsterHandler,
   updateMonsterHandler,
+  deleteMonsterHandler,
 } from './monsters.controller.ts'
 import {
   getMonstersSchema,
   getMonsterByIdSchema,
   addMonsterSchema,
   updateMonsterSchema,
+  deleteMonsterSchema,
 } from './monsters.schemas.ts'
 
 async function getMonstersRoute(fastify: FastifyInstance) {
@@ -28,4 +30,14 @@ async function updateMonsterRoute(fastify: FastifyInstance) {
   fastify.put('/monsters/:id', { schema: updateMonsterSchema }, updateMonsterHandler)
 }
 
-export { getMonstersRoute, getMonsterByIdRoute, addMonsterRoute, updateMonsterRoute }
+async function deleteMonsterRoute(fastify: FastifyInstance) {
+  fastify.delete('/monsters/:id', { schema: deleteMonsterSchema }, deleteMonsterHandler)
+}
+
+export {
+  getMonstersRoute,
+  getMonsterByIdRoute,
+  addMonsterRoute,
+  updateMonsterRoute,
+  deleteMonsterRoute,
+}

@@ -99,4 +99,29 @@ const updateMonsterSchema = {
   },
 }
 
-export { getMonstersSchema, getMonsterByIdSchema, addMonsterSchema, updateMonsterSchema }
+const deleteMonsterSchema = {
+  params: {
+    type: 'object',
+    required: ['id'],
+    properties: {
+      id: { type: 'string' },
+    },
+  },
+  response: {
+    204: { type: 'null' },
+    404: {
+      type: 'object',
+      properties: {
+        error: { type: 'string' },
+      },
+    },
+  },
+}
+
+export {
+  getMonstersSchema,
+  getMonsterByIdSchema,
+  addMonsterSchema,
+  updateMonsterSchema,
+  deleteMonsterSchema,
+}

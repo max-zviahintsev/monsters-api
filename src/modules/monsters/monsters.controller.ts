@@ -1,5 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { getAllMonsters, getMonsterById, addMonster, updateMonster } from './monster.service.ts'
+import {
+  getAllMonsters,
+  getMonsterById,
+  addMonster,
+  updateMonster,
+  deleteMonster,
+} from './monster.service.ts'
 import { MonstersParams, addMonsterBody, updateMonsterBody } from './types.ts'
 
 async function getAllMonstersHandler(req: FastifyRequest, reply: FastifyReply) {
@@ -57,4 +63,23 @@ export async function updateMonsterHandler(
 
   return reply.send(updated)
 }
-export { getAllMonstersHandler, getMonsterByIdHandler, addMonsterHandler }
+
+async function deleteMonsterHandler(
+  req: FastifyRequest<{ Params: MonstersParams }>,
+  reply: FastifyReply,
+) {
+  const id = Number(req.params.id)
+  if (isNaN(id)) {
+    return reply.status(400).send({ error: 'Invalid ID' })
+  }
+
+  const deleted = await deleteMonster(id)
+
+  if (!deleted) {
+    return reply.status(404).send({ error: 'Monster not found' })
+  }
+
+  return reply.status(204).send()
+}
+
+export { getAllMonstersHandler, getMonsterByIdHandler, addMonsterHandler, deleteMonsterHandler }
