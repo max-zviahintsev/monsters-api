@@ -8,6 +8,7 @@ import {
   updateMonsterRoute,
   deleteMonsterRoute,
 } from './modules/monsters/monsters.routes.ts'
+import { getHabitatsRoute } from './modules/habitats/habitats.routes.ts'
 
 const app: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
   logger: {
@@ -27,5 +28,6 @@ await app.register(getMonsterByIdRoute)
 await app.register(addMonsterRoute)
 await app.register(updateMonsterRoute)
 await app.register(deleteMonsterRoute)
+await app.register(getHabitatsRoute)
 
 export default app
