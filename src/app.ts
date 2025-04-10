@@ -5,6 +5,7 @@ import {
   getMonstersRoute,
   getMonsterByIdRoute,
   addMonsterRoute,
+  updateMonsterRoute,
 } from './modules/monsters/monsters.routes.ts'
 
 const app: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({
@@ -23,5 +24,6 @@ app.get('/ping', async () => 'pong\n')
 await app.register(getMonstersRoute)
 await app.register(getMonsterByIdRoute)
 await app.register(addMonsterRoute)
+await app.register(updateMonsterRoute)
 
 export default app

@@ -3,82 +3,29 @@ import {
   getAllMonstersHandler,
   getMonsterByIdHandler,
   addMonsterHandler,
+  updateMonsterHandler,
 } from './monsters.controller.ts'
+import {
+  getMonstersSchema,
+  getMonsterByIdSchema,
+  addMonsterSchema,
+  updateMonsterSchema,
+} from './monsters.schemas.ts'
 
 async function getMonstersRoute(fastify: FastifyInstance) {
-  const opts = {
-    schema: {
-      response: {
-        200: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              id: {
-                type: 'string',
-              },
-              name: {
-                type: 'string',
-              },
-              personality: {
-                type: 'string',
-              },
-            },
-          },
-        },
-      },
-    },
-  }
-  fastify.get('/monsters', opts, getAllMonstersHandler)
+  fastify.get('/monsters', { schema: getMonstersSchema }, getAllMonstersHandler)
 }
 
 async function getMonsterByIdRoute(fastify: FastifyInstance) {
-  const opts = {
-    schema: {
-      params: {
-        type: 'object',
-        properties: {
-          id: { type: 'string' },
-        },
-      },
-    },
-  }
-  fastify.get('/monsters/:id', opts, getMonsterByIdHandler)
+  fastify.get('/monsters/:id', { schema: getMonsterByIdSchema }, getMonsterByIdHandler)
 }
 
 async function addMonsterRoute(fastify: FastifyInstance) {
-  const opts = {
-    schema: {
-      body: {
-        type: 'object',
-        required: ['name', 'personality'],
-        additionalProperties: false,
-        properties: {
-          name: {
-            type: 'string',
-          },
-          personality: {
-            type: 'string',
-          },
-        },
-      },
-      response: {
-        201: {
-          type: 'object',
-          properties: {
-            name: {
-              type: 'string',
-            },
-            personality: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    },
-  }
-
-  fastify.post('/monsters', opts, addMonsterHandler)
+  fastify.post('/monsters', { schema: addMonsterSchema }, addMonsterHandler)
 }
 
-export { getMonstersRoute, getMonsterByIdRoute, addMonsterRoute }
+async function updateMonsterRoute(fastify: FastifyInstance) {
+  fastify.put('/monsters/:id', { schema: updateMonsterSchema }, updateMonsterHandler)
+}
+
+export { getMonstersRoute, getMonsterByIdRoute, addMonsterRoute, updateMonsterRoute }
